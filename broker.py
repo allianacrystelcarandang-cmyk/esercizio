@@ -1,3 +1,6 @@
+import socket
+import threading
+
 class BrokerMulti(threading.Thread):
    def __init__(self, client,addr,diz):
        super().__init__()
@@ -29,6 +32,23 @@ class BrokerMulti(threading.Thread):
                        sock.sendall(mess)
            print(self.diz)
 
+def Main():
+   host = ''
+   port = 3087
+   diz = {"meteo": []}
+   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
+   sock.bind((host, port))
+   sock.listen(5)
+   print("Broker listening...")
+
+   while True:
+       client, addr = sock.accept()
+       print("Connected by", addr)
+       thread = BrokerMulti(client, addr, diz)
+       thread.daemon = True
+       thread.start()
+   sock.close()
 
 
 if __name__ == '__main__':
