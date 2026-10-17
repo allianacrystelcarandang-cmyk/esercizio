@@ -13,10 +13,10 @@ def main():
    if mess=="si":
       print ("message sent --")
    elif mess=="no":
-      print "topic doesnt exist --")
+      print ("topic doesnt exist --")
 
 
-def readLine(self, sk):
+def readLine(sk):
     data = b''
     while (b'\n' not in data):
         data += sk.recv(1024)

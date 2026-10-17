@@ -30,11 +30,13 @@ class BrokerMulti(threading.Thread):
            else:
                topic=msg[1]
                mess=msg[2].encode("utf-8")
-               print(mess)
                print("publisher")
-               if topic in self.diz :
+               if topic in self.diz.keys():
+                   self.sock.sendall("si\n".encode())
                    for sock in self.diz[topic]:
                        sock.sendall(mess)
+               else:
+                   self.sock.sendall("no\n".encode())
            print(self.diz)
 
 def Main():
