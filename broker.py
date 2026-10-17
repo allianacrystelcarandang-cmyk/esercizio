@@ -24,6 +24,9 @@ class BrokerMulti(threading.Thread):
                if topic in self.diz.keys():
                    self.diz[topic].append(self.sock)
                    print("client aggiunto al topic")
+               else:
+                   self.diz[topic]=[]
+                   self.diz[topic].append(self.sock)
            else:
                topic=msg[1]
                mess=msg[2].encode("utf-8")
@@ -36,8 +39,8 @@ class BrokerMulti(threading.Thread):
 
 def Main():
    host = ''
-   port = 3087
-   diz = {"meteo": []}
+   port = 1234
+   diz = {}
    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
    sock.bind((host, port))
