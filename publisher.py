@@ -9,7 +9,11 @@ def main():
    topic=input("Enter topic: ")
    message=input("Enter message: ")
    sock.sendall(f"pub:{topic}:{message}\n".encode())
-   sock.recv(1024)
+   mess=readLine(sock).decode("utf-8")
+   if mess=="si":
+      print ("message sent --")
+   elif mess=="no":
+      print "topic doesnt exist --")
 
 
 def readLine(self, sk):
