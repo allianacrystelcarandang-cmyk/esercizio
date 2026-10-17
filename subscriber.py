@@ -7,7 +7,6 @@ def main():
    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    sock.connect((host, port))
    topic=input("Enter topic: ")
-   message=input("Enter message: ")
    sock.sendall(f"sub:{topic}\n".encode())
    while True:
        print(sock.recv(1024).decode())

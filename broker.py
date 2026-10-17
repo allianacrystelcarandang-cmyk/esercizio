@@ -17,15 +17,17 @@ class BrokerMulti(threading.Thread):
 
    def run(self):
            messaggio=self.readLine(self.sock).decode("utf-8")
-           msg = messaggio.split(" ")
-           topic=msg[1]
-           if (topic=="sub"):
+           msg = messaggio.split(":")
+           if msg[0] == "sub":
+               topic=msg[1]
                print("SUBSCRIBER --")
                if topic in self.diz.keys():
-                   self.diz[topic].append(self.addr)
+                   self.diz[topic].append(self.sock)
                    print("client aggiunto al topic")
            else:
+               topic=msg[1]
                mess=msg[2].encode("utf-8")
+               print(mess)
                print("publisher")
                if topic in self.diz :
                    for sock in self.diz[topic]:
