@@ -9,6 +9,15 @@ def main():
    topic=input("Enter topic: ")
    message=input("Enter message: ")
    sock.sendall(f"pub:{topic}:{message}\n".encode())
+   sock.recv(1024)
+
+
+def readLine(self, sk):
+    data = b''
+    while (b'\n' not in data):
+        data += sk.recv(1024)
+        if not data: return b''
+    return data.strip()
 
 
 if __name__ == "__main__":
